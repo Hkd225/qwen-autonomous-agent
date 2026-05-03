@@ -1,13 +1,13 @@
 # 🤖 Autonomous Agent - LLM Qwen 2.5 7B
 
-Implementasi lengkap **Autonomous Agent** berbasis LLM Qwen 2.5 7B yang terinspirasi dari paper-paper AGI terbaik. Menggabungkan ReAct, Reflexion, MemGPT, Tree of Thoughts, dan Voyager dalam satu sistem yang coherent.
+A complete implementation of an **Autonomous Agent** based on the Qwen 2.5 7B LLM, inspired by the best AGI papers. Integrating ReAct, Reflexion, MemGPT, Tree of Thoughts, and Voyager into a single coherent system.
 
 ---
 
-## 📄 Paper Referensi
+## 📄 Reference Papers
 
-| Paper | Kontribusi ke Agent |
-|-------|---------------------|
+| Paper | Contribution to Agent |
+|-------|-----------------------|
 | **ReAct** (Yao et al., 2022) | Core Think→Act→Observe loop |
 | **Reflexion** (Shinn et al., 2023) | Post-action self-reflection & verbal RL |
 | **MemGPT** (Packer et al., 2023) | Hierarchical memory management |
@@ -19,7 +19,7 @@ Implementasi lengkap **Autonomous Agent** berbasis LLM Qwen 2.5 7B yang terinspi
 
 ---
 
-## 🏗️ Arsitektur
+## 🏗️ Architecture
 
 ```
 autonomous_agent/
@@ -47,12 +47,12 @@ autonomous_agent/
 
 ---
 
-## ⚙️ Setup & Instalasi
+## ⚙️ Setup & Installation
 
 ### 1. Prerequisites
 
 - Python 3.10+
-- [Ollama](https://ollama.ai) (untuk inferensi lokal)
+- [Ollama](https://ollama.ai) (for local inference)
 
 ### 2. Install Ollama & Model
 
@@ -60,10 +60,10 @@ autonomous_agent/
 # Install Ollama (macOS/Linux)
 curl -fsSL https://ollama.ai/install.sh | sh
 
-# Pull model Qwen 2.5 7B
+# Pull Qwen 2.5 7B model
 ollama pull qwen2.5:7b
 
-# Verifikasi
+# Verification
 ollama list
 ollama run qwen2.5 "Hello!"
 ```
@@ -71,60 +71,60 @@ ollama run qwen2.5 "Hello!"
 ### 3. Install Python Dependencies
 
 ```bash
-# Buat virtual environment (direkomendasikan)
+# Create a virtual environment (recommended)
 python -m venv venv
 source venv/bin/activate   # Linux/macOS
-# atau: venv\Scripts\activate  # Windows
+# or: venv\Scripts\activate  # Windows
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Verifikasi instalasi
+# Verify installation
 python -c "import chromadb, sentence_transformers; print('OK')"
 ```
 
-### 4. (Opsional) Konfigurasi
+### 4. (Optional) Configuration
 
 ```python
-# Edit di main.py atau buat config sendiri:
+# Edit in main.py or create your own config:
 config = AgentConfig(
-    model_name="qwen2.5:7b",       # Nama model Ollama
-    ollama_url="http://localhost:11434",  # URL Ollama
-    max_iterations=15,              # Batas langkah per task
-    storage_dir="./agent_storage",  # Direktori penyimpanan
-    use_planning=True,              # Aktifkan planning
-    use_reflection=True,            # Aktifkan Reflexion
-    use_skill_library=True,         # Aktifkan skill reuse
+    model_name="qwen2.5:7b",       # Ollama model name
+    ollama_url="http://localhost:11434",  # Ollama URL
+    max_iterations=15,              # Step limit per task
+    storage_dir="./agent_storage",  # Storage directory
+    use_planning=True,              # Enable planning
+    use_reflection=True,            # Enable Reflexion
+    use_skill_library=True,         # Enable skill reuse
 )
 ```
 
 ---
 
-## 🚀 Penggunaan
+## 🚀 Usage
 
 ### Mode 1: Single Task
 
 ```bash
-# Task default (demo)
+# Default task (demo)
 python main.py
 
 # Custom task
-python main.py --task "Cari 5 paper terbaru tentang LLM agents"
+python main.py --task "Find 5 recent papers about LLM agents"
 
-# Dengan verbose logging
-python main.py --task "Hitung compound interest 10% selama 20 tahun" --verbose
+# With verbose logging
+python main.py --task "Calculate 10% compound interest for 20 years" --verbose
 ```
 
-### Mode 2: Demo Semua Tasks
+### Mode 2: Demo All Tasks
 
 ```bash
 python main.py --mode demo
 ```
 
-Menjalankan 5 demo tasks berbeda:
-- Riset web
-- Kalkulasi matematika
-- Analisis konseptual
+Runs 5 different demo tasks:
+- Web research
+- Mathematical calculation
+- Conceptual analysis
 - Coding task
 - Goal planning
 
@@ -134,8 +134,8 @@ Menjalankan 5 demo tasks berbeda:
 python main.py --mode interactive
 ```
 
-Mode chat interaktif. Ketik task dan agent akan menyelesaikannya.
-Perintah khusus: `status`, `skills`, `goals`, `quit`.
+Interactive chat mode. Type a task and the agent will complete it.
+Special commands: `status`, `skills`, `goals`, `quit`.
 
 ### Mode 4: Goal Pursuit
 
@@ -143,17 +143,17 @@ Perintah khusus: `status`, `skills`, `goals`, `quit`.
 python main.py --mode goals
 ```
 
-Demo goal hierarchy: set ultimate goal → decompose → pursuit otomatis.
+Goal hierarchy demo: set ultimate goal → decompose → automatic pursuit.
 
-### Opsi CLI Lengkap
+### Complete CLI Options
 
 ```
---task TEXT          Task yang akan diselesaikan
+--task TEXT          Task to be completed
 --mode MODE          single | demo | interactive | goals
---model MODEL        Nama model Ollama (default: qwen2.5:7b)
---ollama-url URL     URL Ollama server
---max-steps N        Maksimal langkah (default: 15)
---storage-dir DIR    Direktori storage (default: ./agent_storage)
+--model MODEL        Ollama model name (default: qwen2.5:7b)
+--ollama-url URL     Ollama server URL
+--max-steps N        Maximum steps (default: 15)
+--storage-dir DIR    Storage directory (default: ./agent_storage)
 --verbose            Verbose logging
 --no-plan            Disable planning system
 --no-reflect         Disable Reflexion
@@ -161,7 +161,7 @@ Demo goal hierarchy: set ultimate goal → decompose → pursuit otomatis.
 
 ---
 
-## 🔧 Penggunaan sebagai Library
+## 🔧 Usage as a Library
 
 ```python
 import asyncio
@@ -175,17 +175,17 @@ async def main():
     agent = AutonomousAgent(config)
 
     # Single task
-    trace = await agent.run("Jelaskan konsep transformer architecture")
+    trace = await agent.run("Explain the transformer architecture concept")
     print(trace.final_answer)
     print(f"Success: {trace.success}, Steps: {len(trace.steps)}")
 
-    # Dengan goal management
+    # With goal management
     goal = await agent.set_goal(
         title="Research AI Trends",
-        description="Kumpulkan dan analisis tren AI terkini 2024-2025",
+        description="Collect and analyze the latest AI trends 2024-2025",
     )
 
-    # Auto-decompose dan pursue
+    # Auto-decompose and pursue
     subgoals = await agent.decompose_goal(goal, n_subgoals=3)
     traces = await agent.pursue_goals(max_goals=3)
 
@@ -209,7 +209,7 @@ class MyCustomTool(BaseTool):
     def name(self): return "my_tool"
 
     @property
-    def description(self): return "Deskripsi tool untuk LLM"
+    def description(self): return "Tool description for the LLM"
 
     @property
     def parameter_schema(self):
@@ -221,23 +221,23 @@ class MyCustomTool(BaseTool):
         result = f"Processed: {input}"
         return ToolResult(success=True, output=result)
 
-# Register ke agent
+# Register to the agent
 agent.tool_registry.register(MyCustomTool())
 ```
 
 ---
 
-## 🧠 Komponen Detail
+## 🧠 Detailed Components
 
 ### Memory System (MemGPT-inspired)
 
 ```
-Working Memory (RAM analog)
+Working Memory (RAM analogue)
 ├── Max 6000 tokens
 ├── FIFO eviction (importance-protected)
-└── Context window untuk LLM
+└── Context window for the LLM
 
-Episodic Memory (Harddisk analog)
+Episodic Memory (Hard disk analogue)
 ├── ChromaDB vector store
 ├── Semantic similarity search
 └── Time-decay retrieval scoring
@@ -266,56 +266,56 @@ importance = LLM_rating(1-10) normalized to [0, 1]
 ### ReAct Loop
 
 ```
-Untuk setiap langkah:
-1. PERCEIVE  → Kumpulkan working memory + retrieved memories
+For each step:
+1. PERCEIVE  → Collect working memory + retrieved memories
 2. THINK     → Chain-of-Thought reasoning (JSON structured)
-3. DECIDE    → Pilih action atau FINISH
-4. ACT       → Eksekusi tool dengan safe_execute()
-5. OBSERVE   → Proses hasil, tambah ke working memory
-6. REFLECT   → Evaluasi apakah langkah berhasil (Reflexion)
-7. UPDATE    → Simpan ke episodic memory jika penting
+3. DECIDE    → Choose action or FINISH
+4. ACT       → Execute tool with safe_execute()
+5. OBSERVE   → Process results, add to working memory
+6. REFLECT   → Evaluate if the step was successful (Reflexion)
+7. UPDATE    → Save to episodic memory if important
 ```
 
 ---
 
 ## 🔍 Troubleshooting
 
-### "Ollama tidak tersedia"
+### "Ollama is not available"
 ```bash
-# Cek Ollama berjalan
+# Check if Ollama is running
 curl http://localhost:11434/api/tags
 
-# Start Ollama jika belum
+# Start Ollama if not running
 ollama serve
 
-# Pastikan model sudah di-pull
+# Ensure the model is pulled
 ollama pull qwen2.5:7b
 ```
 
-### "ChromaDB error" atau "FAISS not available"
+### "ChromaDB error" or "FAISS not available"
 ```bash
-# Reinstall dengan versi yang kompatibel
+# Reinstall with a compatible version
 pip install chromadb>=0.4.24 faiss-cpu>=1.8.0 --force-reinstall
 ```
 
 ### "sentence-transformers slow"
-Model embedding akan di-download pertama kali (~90MB).
-Pastikan koneksi internet tersedia untuk download pertama.
+The embedding model will be downloaded the first time (~90MB).
+Ensure an internet connection is available for the initial download.
 
-### Memory error / GPU OOM (jika pakai HuggingFace)
+### Memory error / GPU OOM (if using HuggingFace)
 ```python
 config = AgentConfig(
     model_name="qwen2.5:7b",
-    prefer_ollama=True,  # Selalu prefer Ollama (lebih efisien memory)
+    prefer_ollama=True,  # Always prefer Ollama (more memory efficient)
 )
 ```
 
-### Agent loop terlalu lama
+### Agent loop takes too long
 ```python
 config = AgentConfig(
-    max_iterations=8,       # Kurangi iterasi
-    use_planning=False,     # Disable planning untuk task sederhana
-    use_reflection=False,   # Disable reflection untuk kecepatan
+    max_iterations=8,       # Reduce iterations
+    use_planning=False,     # Disable planning for simple tasks
+    use_reflection=False,   # Disable reflection for speed
 )
 ```
 
@@ -323,15 +323,15 @@ config = AgentConfig(
 
 ## 📊 Performance Tips
 
-1. **Gunakan Ollama** daripada HuggingFace untuk inference yang lebih cepat
-2. **Kurangi `max_iterations`** untuk task sederhana (5-8 cukup)
-3. **Aktifkan skill library** untuk menghemat tokens pada task repetitif
-4. **Gunakan temperature rendah** (0.3-0.5) untuk reasoning yang lebih konsisten
-5. **Gunakan `qwen2.5:3b`** jika RAM terbatas (lebih cepat, akurasi sedikit lebih rendah)
+1. **Use Ollama** instead of HuggingFace for faster inference.
+2. **Reduce `max_iterations`** for simple tasks (5-8 is sufficient).
+3. **Enable the skill library** to save tokens on repetitive tasks.
+4. **Use lower temperature** (0.3-0.5) for more consistent reasoning.
+5. **Use `qwen2.5:3b`** if RAM is limited (faster, slightly lower accuracy).
 
 ---
 
-## 📚 Referensi
+## 📚 References
 
 - [ReAct Paper](https://arxiv.org/abs/2210.03629)
 - [Reflexion Paper](https://arxiv.org/abs/2303.11366)
@@ -344,6 +344,6 @@ config = AgentConfig(
 
 ---
 
-## 📝 Lisensi
+## 📝 License
 
-MIT License - bebas digunakan untuk keperluan riset dan pengembangan.
+MIT License - free to use for research and development purposes.
